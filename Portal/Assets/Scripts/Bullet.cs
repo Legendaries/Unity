@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
-	public GameObject portal;
+	private GameObject portal1;
+	private GameObject portal2;
 
 	void Start () {
 	
@@ -17,10 +18,14 @@ public class Bullet : MonoBehaviour {
 		if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "MainCamera") {
 			Destroy (this.gameObject);
 
+			portal1.transform.position = collision.transform.position;
+			portal1.transform.LookAt (portal1.transform.position-collision.gameObject.transform.forward);
+
+			/*
 			Vector3 rot = collision.gameObject.transform.rotation.eulerAngles;
 			Vector3 pos = collision.gameObject.transform.position;
 
-			portal.transform.rotation = Quaternion.Euler (rot);
+			portal1.transform.rotation = Quaternion.Euler (rot);
 			rot.y *= Mathf.PI / 180f;
 			//TODO: replacee later
 			if (rot.x == 0)
@@ -30,7 +35,8 @@ public class Bullet : MonoBehaviour {
 			pos.z += 0.1f * Mathf.Cos (rot.y);
 			pos.x -= 0.1f * Mathf.Sin (rot.y);
 
-			portal.transform.position = pos;
+			portal1.transform.position = pos;
+			*/
 		}
 	}
 
