@@ -11,8 +11,10 @@ public class CompanionCubeScript : MonoBehaviour {
 	private const int MAX_DELAY = 5; //Max delay to re-enter a portal, currently only triggered on enter, not stay.
 	private int delay = MAX_DELAY; //Current stored delay
 
+	//private LineRenderer lineRenderer;
+
 	void Start () {
-		
+		//lineRenderer = GetComponent<LineRenderer> ();
 	}
 
 
@@ -20,7 +22,19 @@ public class CompanionCubeScript : MonoBehaviour {
 		
 		if (delay < MAX_DELAY)
 			delay++;
-		
+		transform.Rotate (new Vector3(0, 1, 0));
+
+		/*
+		lineRenderer.SetPositions (new Vector3[]{transform.position, transform.forward*100f});
+
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast (transform.position, transform.forward*100, out hit)) {
+			Destroy(hit.transform.gameObject);
+		} else {
+			
+		}
+		*/
 	}
 
 	public void FixedUpdate(){

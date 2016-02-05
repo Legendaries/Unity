@@ -56,7 +56,6 @@ public class PortalGun : MonoBehaviour {
 		}
 		if (delay < MAX_DELAY)
 			delay++;
-		fpsControllerScript.velocity = Vector3.zero;
 
 		if (Input.GetButtonDown ("Pick Up")) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -110,12 +109,13 @@ public class PortalGun : MonoBehaviour {
 		if (delay == MAX_DELAY) {
 			if (other.gameObject == portal1) {
 				transform.position = portal2.transform.position;
-				fpsControllerScript.velocity = -portal2.transform.forward*fpsControllerScript.m_MoveDir.magnitude;
-				//transform.rotation = portal2.transform.rotation;
+				//fpsControllerScript.goalVelocity = -portal2.transform.forward*fpsControllerScript.m_MoveDir.magnitude;
+				fpsControllerScript.goalRotation = -portal2.transform.forward;
 			} else if (other.gameObject == portal2) {
 				transform.position = portal1.transform.position;
-				fpsControllerScript.velocity = -portal1.transform.forward*fpsControllerScript.m_MoveDir.magnitude;
-				//transform.rotation = portal1.transform.rotation;
+				//fpsControllerScript.goalVelocity = -portal1.transform.forward*fpsControllerScript.m_MoveDir.magnitude;
+				fpsControllerScript.goalRotation = -portal1.transform.forward;
+				//transform.LookAt (portal1.transform.position - portal1.transform.forward);
 			}
 			delay = 0;
 		}

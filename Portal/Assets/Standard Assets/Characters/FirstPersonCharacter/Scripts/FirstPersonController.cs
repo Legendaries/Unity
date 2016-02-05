@@ -42,7 +42,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
-		public Vector3 velocity = Vector3.zero;
+		public Vector3 goalVelocity = Vector3.zero;
+		public Vector3 goalRotation = Vector3.zero;
 
         // Use this for initialization
         private void Start()
@@ -108,8 +109,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                m_CharacterController.height/2f, ~0, QueryTriggerInteraction.Ignore);
 			desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-			m_MoveDir.x = desiredMove.x*speed+velocity.x;
-			m_MoveDir.z = desiredMove.z*speed+velocity.z;
+			m_MoveDir.x = desiredMove.x*speed+goalVelocity.x;
+			m_MoveDir.z = desiredMove.z*speed+goalVelocity.z;
 
 
             if (m_CharacterController.isGrounded)
@@ -128,7 +129,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
-			m_MoveDir.y += velocity.y;
+			m_MoveDir.y += goalVelocity.y;
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
@@ -239,8 +240,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         private void RotateView()
-        {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+		{
+			m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 
 
